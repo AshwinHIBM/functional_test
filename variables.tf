@@ -30,3 +30,14 @@ variable "image_bucket_file_name" {
   type        = string
   description = "File name of the image in the COS bucket."
 }
+
+variable "machine_cidr" {
+  type        = string
+  description = "The machine network (IPv4 only)"
+}
+
+variable "dns_server" {
+  type        = string
+  description = "The desired DNS server for the DHCP instance to server."
+  default     = "1.1.1.1"
+}
