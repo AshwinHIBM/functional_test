@@ -41,3 +41,11 @@ variable "dns_server" {
   description = "The desired DNS server for the DHCP instance to server."
   default     = "1.1.1.1"
 }
+
+variable "keypair_name" {
+  default = ""
+}
+
+variable "system_type" {
+  default = "s922"
+}

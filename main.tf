@@ -41,3 +41,23 @@ data "ibm_pi_dhcp" "dhcp_service" {
   pi_cloud_instance_id = var.workspace_id
   pi_dhcp_id           = ibm_pi_dhcp.dhcp_service.dhcp_id
 }
+
+data "ibm_pi_key" "key" {
+  pi_cloud_instance_id = var.workspace_id
+  pi_key_name          = var.keypair_name
+}
+
+resource "ibm_pi_instance" "vm" {
+  pi_memory            = "2"
+  pi_processors        = "0.25"
+  pi_instance_name     = "vm-${random_string.random.id}"
+  pi_proc_type         = "shared"
+  pi_image_id          = ibm_pi_image.boot_image.image_id
+  pi_key_pair_name     = data.ibm_pi_key.key.id
+  pi_sys_type          = var.system_type
+  pi_cloud_instance_id = var.workspace_id
+  pi_health_status     = "WARNING"
+  pi_network {
+    network_id = data.ibm_pi_dhcp.dhcp_service.network_id
+  }
+}
