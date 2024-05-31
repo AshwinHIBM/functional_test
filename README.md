@@ -1,4 +1,4 @@
-# Functional test to boot a connected PowerVS VM with an image
+# Functional test to boot 3 connected PowerVS VMs with an image
 ## Pre-requisites
 1. IBM Cloud account
 2. IBM PowerVS Workspace
@@ -17,4 +17,4 @@
 1. Authenticate to IBM Cloud using the API key corresponding to the account in pre-requisite #1.
 2. Import the OS image from the COS bucket created as a part of pre-requisite #3 into the PowerVS Workspace specified in pre-requisite #2.
 3. Create a DHCP service in the PowerVS Workspace.
-4. Create a VM connected to the DHCP service created as a part of the above step that boots using the imported OS image.
+4. Create 3 VMs connected to the DHCP service created as a part of the above step that boot using the imported OS image.
