@@ -47,7 +47,8 @@ data "ibm_pi_key" "key" {
   pi_key_name          = var.keypair_name
 }
 
-resource "ibm_pi_instance" "vm" {
+resource "ibm_pi_instance" "master" {
+  count                = 3
   pi_memory            = "2"
   pi_processors        = "0.25"
   pi_instance_name     = "vm-${random_string.random.id}"
