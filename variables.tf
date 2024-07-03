@@ -19,16 +19,19 @@ variable "workspace_id" {
 variable "image_bucket_name" {
   type        = string
   description = "Name of the COS bucket containing the image to be imported."
+  default     = "rhcos-powervs-images-us-south"
 }
 
 variable "image_bucket_location" {
   type        = string
   description = "The region in which to create the Cloud Object Store bucket. Used for the igntion file."
+  default     = "us-south"
 }
 
 variable "image_bucket_file_name" {
   type        = string
   description = "File name of the image in the COS bucket."
+  default     = "rhcos-417-94-202405291927-0-ppc64le-powervs.ova.gz"
 }
 
 variable "machine_cidr" {
