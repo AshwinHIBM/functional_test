@@ -47,6 +47,18 @@ data "ibm_pi_key" "key" {
   pi_key_name          = var.keypair_name
 }
 
+resource "time_sleep" "wait_for_master_macs" {
+  create_duration = "3m"
+
+  depends_on = [ibm_pi_instance.master]
+}
+
+data "ibm_pi_dhcp" "dhcp_service_refresh" {
+  depends_on           = [time_sleep.wait_for_master_macs]
+  pi_cloud_instance_id = var.workspace_id
+  pi_dhcp_id           = resource.ibm_pi_dhcp.dhcp_service.dhcp_id
+}
+
 resource "ibm_pi_instance" "master" {
   count                = 3
   pi_memory            = "2"
@@ -61,4 +73,9 @@ resource "ibm_pi_instance" "master" {
   pi_network {
     network_id = data.ibm_pi_dhcp.dhcp_service.network_id
   }
+}
+
+locals {
+  macs       = flatten(ibm_pi_instance.master[*].pi_network[0].mac_address)
+  master_ips = [for lease in data.ibm_pi_dhcp.dhcp_service_refresh.leases : lease.instance_ip if contains(local.macs, lease.instance_mac)]
 }
